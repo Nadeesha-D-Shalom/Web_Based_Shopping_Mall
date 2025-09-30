@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Cart Item</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h2>Edit Cart Item</h2>
+
+<form id="editForm">
+    <input type="hidden" id="itemId">
+    <input type="hidden" id="customerId">
+    <div>
+        <label>Product: </label>
+        <span id="productName"></span>
+    </div>
+    <div>
+        <label>Quantity: </label>
+        <input type="number" id="quantity" min="1">
+    </div>
+    <button type="submit">Save</button>
+    <a href="index.html">Cancel</a>
+</form>
+
+<script src="edit-item.js"></script>
+</body>
+</html>

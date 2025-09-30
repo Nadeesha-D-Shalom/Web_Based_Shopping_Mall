@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+<div class="sidebar">
+    <h2>DALLOS Shopping Mall</h2>
+    <nav>
+        <a href="http://localhost:8080/admin-ui/index.html">👤 Admins</a>
+        <a href="../product-ui/index.html">🛍️ Products</a>
+        <a href="../order-ui/index.html">📦 Orders</a>
+        <a href="../cart-ui/index.html">🛒 Cart</a>
+        <a href="../staff-ui/index.html">👥 Staff</a>
+    </nav>
+</div>
+
+
+<div class="main">
+    <header>
+        <h1>Admin Dashboard</h1>
+        <button class="logout">Logout</button>
+    </header>
+
+    <section class="cards">
+        <div class="card"><h3>Total Admins</h3><p id="adminCount">0</p></div>
+        <div class="card"><h3>Total Products</h3><p id="productCount">0</p></div>
+        <div class="card"><h3>Total Orders</h3><p id="orderCount">0</p></div>
+        <div class="card"><h3>Total Staff</h3><p id="staffCount">0</p></div>
+    </section>
+
+    <section class="welcome">
+        <h2>Welcome, Admin 👋</h2>
+        <p>Use the sidebar to manage users, products, orders, and staff.</p>
+    </section>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
