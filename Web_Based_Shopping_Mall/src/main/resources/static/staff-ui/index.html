@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Staff Management</h1>
+
+<div id="messageBox"></div>
+
+<!-- Add Staff Form -->
+<form id="staffForm">
+    <input type="hidden" id="staffId">
+    <input type="text" id="fullName" placeholder="Full Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="text" id="position" placeholder="Position" required>
+    <button type="submit">Save Staff</button>
+</form>
+
+<!-- Staff Table -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Position</th>
+        <th>Created At</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="staffTableBody"></tbody>
+</table>
+
+<script src="staff.js"></script>
+</body>
+</html>

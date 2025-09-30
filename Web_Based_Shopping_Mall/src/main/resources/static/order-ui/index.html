@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>📦 Order Management</h1>
+
+    <!-- Order Form -->
+    <form id="orderForm">
+        <input type="hidden" id="orderId">
+        <input type="text" id="customerName" placeholder="Customer Name" required>
+        <input type="email" id="customerEmail" placeholder="Customer Email" required>
+        <input type="number" step="0.01" id="totalAmount" placeholder="Total Amount" required>
+        <select id="status">
+            <option value="Pending">Pending</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+        <input type="number" id="staffId" placeholder="Staff ID (optional)">
+        <button type="submit">Save Order</button>
+    </form>
+
+    <!-- Orders Table -->
+    <h2>📝 Orders List</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>Staff</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="orderTableBody">
+        <!-- Filled dynamically by order.js -->
+        </tbody>
+    </table>
+</div>
+
+<script src="order.js"></script>
+</body>
+</html>

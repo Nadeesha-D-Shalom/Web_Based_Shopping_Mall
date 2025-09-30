@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Admin Management</h1>
+
+<div id="messageBox"></div>
+
+<!-- Add Admin Form -->
+<form id="adminForm">
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="text" id="fullName" placeholder="Full Name">
+    <button type="submit">Add Admin</button>
+</form>
+
+<!-- Admin Table -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Full Name</th>
+        <th>Created At</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="adminTableBody"></tbody>
+</table>
+
+<script src="admin.js"></script>
+</body>
+</html>

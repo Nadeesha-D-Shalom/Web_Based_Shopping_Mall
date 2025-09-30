@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>🛒 Product Management</h1>
+
+    <!-- Product Form -->
+    <form id="productForm">
+        <input type="hidden" id="productId">
+        <input type="text" id="name" placeholder="Product Name" required>
+        <textarea id="description" placeholder="Description"></textarea>
+        <input type="number" id="price" placeholder="Price" step="0.01" required>
+        <input type="text" id="size" placeholder="Size">
+        <input type="text" id="category" placeholder="Category">
+        <input type="number" id="quantity" placeholder="Quantity" required>
+        <input type="text" id="imageUrl" placeholder="Image URL">
+        <button type="submit">Save Product</button>
+    </form>
+
+    <!-- Product Table -->
+    <h2>📦 Product List</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Size</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="productTableBody">
+        <!-- Filled dynamically by product.js -->
+        </tbody>
+    </table>
+</div>
+
+<script src="product.js"></script>
+</body>
+</html>

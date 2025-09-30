@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>🛒 Shopping Cart</h1>
+
+    <!-- Message Box -->
+    <div id="messageBox"></div>
+
+    <!-- Customer input -->
+    <div class="customer-input">
+        <label for="customerId">Customer ID:</label>
+        <input type="number" id="customerId" placeholder="Enter Customer ID">
+        <button onclick="loadCart()">Load Cart</button>
+    </div>
+
+    <!-- Cart Table -->
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="cart-items">
+        <tr><td colspan="5" style="text-align:center;">Cart is empty</td></tr>
+        </tbody>
+    </table>
+
+    <!-- Total + Checkout -->
+    <div class="cart-footer">
+        <strong>Total: $<span id="totalPrice">0.00</span></strong>
+        <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    </div>
+</div>
+
+<script src="cart.js"></script>
+</body>
+</html>
