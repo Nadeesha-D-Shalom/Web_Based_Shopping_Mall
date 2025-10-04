@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>User Dashboard — Web Based Shopping Mall</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#f6f8ff; --panel:#fff; --ink:#0f172a; --muted:#64748b;
+      --primary:#2d6cdf; --primary-2:#204fb1; --ok:#10b981; --warn:#ef4444; --bd:#e6ebff;
+      --shadow:0 10px 30px rgba(20,40,120,.12); --radius:14px;
+    }
+    *{box-sizing:border-box;font-family:Inter,system-ui,Segoe UI,Roboto,Arial}
+    body{margin:0;background:var(--bg);color:var(--ink)}
+    header{
+      position:sticky;top:0;z-index:10;background:linear-gradient(90deg,var(--primary),#5b8cff);
+      color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between
+    }
+    header .brand{font-weight:800;letter-spacing:.2px}
+    header nav a{color:#fff;text-decoration:none;margin-left:18px;opacity:.95}
+    header nav a:hover{opacity:1;text-decoration:underline}
+    .pill{background:rgba(255,255,255,.18);padding:6px 10px;border-radius:999px;font-size:.85rem}
+
+    .wrap{max-width:1200px;margin:28px auto;padding:0 18px}
+
+    #toast{position:fixed;right:16px;bottom:16px;z-index:20;display:none}
+    .toast{background:#111827;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:var(--shadow);font-size:.92rem}
+    .toast.ok{background:#065f46}
+    .toast.err{background:#7f1d1d}
+
+    .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+    input[type=search]{
+      flex:1;min-width:240px;background:#fff;border:1px solid var(--bd);border-radius:10px;padding:10px 12px
+    }
+    .badge{background:#e9efff;border:1px solid var(--bd);border-radius:10px;padding:8px 12px;font-weight:600}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+    .card{background:var(--panel);border:1px solid var(--bd);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .card img{width:100%;height:160px;object-fit:cover}
+    .card .p{padding:12px}
+    .name{font-weight:700;margin:6px 0}
+    .desc{color:var(--muted);font-size:.92rem;height:40px;overflow:hidden}
+    .price{margin:10px 0;font-weight:800}
+    .actions{display:flex;gap:8px}
+    button{
+      border:0;border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:700
+    }
+    .btn{background:var(--primary);color:#fff}
+    .btn:hover{background:var(--primary-2)}
+    .ghost{background:#eef3ff;color:#1e3a8a}
+    .ghost:hover{filter:brightness(.97)}
+
+    .panel{margin-top:28px;background:var(--panel);border:1px solid var(--bd);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .panel header{position:unset;background:unset;color:unset;padding:16px 16px;border-bottom:1px solid var(--bd)}
+    .panel header h2{margin:0}
+    .pad{padding:16px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:12px;border-bottom:1px solid #eef2ff;text-align:left}
+    th{background:#f3f6ff;font-size:.9rem}
+    td .small{color:var(--muted);font-size:.9rem}
+    .qtyWrap{display:flex;align-items:center;gap:6px}
+    .qty{width:56px;text-align:center;padding:8px;border:1px solid var(--bd);border-radius:8px}
+    .link{background:#fff;border:1px solid var(--bd);padding:8px 10px;border-radius:8px}
+    .link:hover{filter:brightness(.98)}
+    .foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:12px;flex-wrap:wrap}
+    .total{font-weight:900;font-size:1.1rem}
+    .cta{background:var(--ok);color:#fff}
+    .cta:hover{filter:brightness(.95)}
+    .danger{background:var(--warn);color:#fff}
+    .danger:hover{filter:brightness(.95)}
+    .pulse{animation:pulse 1100ms ease-out 1}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(45,108,223,.7)}100%{box-shadow:0 0 0 22px rgba(45,108,223,0)}}
+    .empty{padding:22px;text-align:center;color:var(--muted)}
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand">🛍️ Shopping Mall</div>
+  <nav>
+    <a href="#products">Products</a>
+    <a href="#cart">My Cart <span id="navCount" class="pill">0</span></a>
+    <a href="#profile">Profile</a>
+    <a href="/logout">Logout</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="row">
+    <input id="q" type="search" placeholder="Search products…" oninput="renderProducts()" />
+    <div class="badge">Items: <span id="productCount">0</span></div>
+  </div>
+
+  <section id="products" class="grid"></section>
+
+  <section id="cart" class="panel">
+    <header><h2>My Cart</h2></header>
+    <div id="cartBody" class="pad">
+      <p class="empty">Your cart is empty.</p>
+    </div>
+  </section>
+</div>
+
+<div id="toast"><div class="toast" id="toastInner"></div></div>
+
+<script>
+  const API_BASE = "http://localhost:8080";
+  const API = {
+    products: API_BASE + '/api/products',
+    cart:     API_BASE + '/api/cart',
+    orders:   API_BASE + '/api/orders'
+  };
+  const customerId = 1;
+
+  const el = id => document.getElementById(id);
+  const fmt = n => Number(n||0).toFixed(2);
+
+  function toast(msg, type='ok'){
+    const box = el('toast'), inner = el('toastInner');
+    inner.textContent = msg; inner.className = 'toast ' + (type==='ok'?'ok':'err');
+    box.style.display = 'block';
+    setTimeout(()=> box.style.display = 'none', 1800);
+  }
+
+  let PRODUCTS = [];
+  let CART = { items: [] };
+
+  async function loadProducts(){
+    const res = await fetch(API.products);
+    PRODUCTS = await res.json();
+    el('productCount').textContent = PRODUCTS.length;
+    renderProducts();
+  }
+
+  function renderProducts(){
+    const q = (el('q').value || '').trim().toLowerCase();
+    const list = PRODUCTS.filter(p => {
+      const name = (p.name || '').toLowerCase();
+      const desc = (p.description || '').toLowerCase();
+      return !q || name.includes(q) || desc.includes(q);
+    });
+
+    el('products').innerHTML = list.map(p => {
+      const img = p.imageUrl || 'https://via.placeholder.com/640x360.png?text=' + encodeURIComponent(p.name || 'Product');
+      const price = fmt(p.price ?? 0);
+      return `
+        <article class="card">
+          <img src="${img}" alt="${(p.name||'Product')}">
+          <div class="p">
+            <div class="name">${p.name||'Untitled'}</div>
+            <div class="desc">${p.description || ''}</div>
+            <div class="price">$${price}</div>
+            <div class="actions">
+              <button class="btn" onclick="addToCart(${p.productId})">Add to Cart</button>
+              <button class="ghost" onclick="viewCart()">View Cart</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  async function loadCart(){
+    const res = await fetch(`${API.cart}/${customerId}`);
+    const data = await res.json();
+    CART = data || { items: [] };
+    CART.items = CART.items || [];
+    renderCart();
+  }
+
+  function renderCart(){
+    const { items } = CART;
+    el('navCount').textContent = items.length;
+
+    if(!items.length){
+      el('cartBody').innerHTML = `<p class="empty">Your cart is empty.</p>`;
+      return;
+    }
+
+    const rows = items.map(it => {
+      const id = it.id;
+      const name = (it.product && it.product.name) || 'Product';
+      const unit = (it.product && it.product.price) || 0;
+      const qty = it.quantity;
+      const line = unit * qty;
+      return `
+        <tr>
+          <td>${name}<div class="small">$${fmt(unit)} each</div></td>
+          <td>
+            <div class="qtyWrap">
+              <button class="link" onclick="updateItem(${id}, ${qty-1})">−</button>
+              <input class="qty" type="number" min="1" value="${qty}" onchange="updateItem(${id}, this.value)">
+              <button class="link" onclick="updateItem(${id}, ${qty+1})">+</button>
+            </div>
+          </td>
+          <td>$${fmt(line)}</td>
+          <td><button class="danger" onclick="removeItem(${id})">Remove</button></td>
+        </tr>
+      `;
+    }).join('');
+
+    const total = items.reduce((sum,it)=> sum + (it.product.price * it.quantity), 0);
+
+    el('cartBody').innerHTML = `
+      <div class="pad" style="padding:0">
+        <table>
+          <thead><tr><th>Product</th><th>Quantity</th><th>Subtotal</th><th>Actions</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="foot pad">
+        <div class="total">Total: $<span id="grand">${fmt(total)}</span></div>
+        <div>
+          <button class="cta" onclick="checkout()">Checkout</button>
+        </div>
+      </div>
+    `;
+  }
+
+  // --- Cart actions (no headers, no body) ---
+  async function addToCart(productId) {
+    const url = `${API.cart}/${customerId}/items?productId=${productId}&quantity=1`;
+    await fetch(url, { method: "POST" });
+    toast('Added to cart');
+    await loadCart();
+    viewCart(true);
+  }
+
+  async function updateItem(itemId, quantity) {
+    if(quantity < 1){ toast('Quantity must be at least 1','err'); return; }
+    const url = `${API.cart}/items/${itemId}?quantity=${quantity}`;
+    await fetch(url, { method: "PUT" });
+    toast('Updated item');
+    await loadCart();
+  }
+
+  async function removeItem(itemId) {
+    const url = `${API.cart}/items/${itemId}`;
+    await fetch(url, { method: "DELETE" });
+    toast('Removed item');
+    await loadCart();
+  }
+
+  async function checkout() {
+    const url = `${API.cart}/${customerId}/checkout`;
+    await fetch(url, { method: "POST" });
+    toast('Order placed successfully ✅');
+    await loadCart();
+  }
+
+  function viewCart(pulse=false){
+    location.hash = '#cart';
+    const target = el('cart');
+    target.scrollIntoView({ behavior:'smooth', block:'start' });
+    if(pulse){ target.classList.add('pulse'); setTimeout(()=>target.classList.remove('pulse'), 800); }
+  }
+
+  (async function init(){
+    await loadProducts();
+    await loadCart();
+  })();
+</script>
+</body>
+</html>
