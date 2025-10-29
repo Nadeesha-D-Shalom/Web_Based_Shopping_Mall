@@ -3,37 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Management</title>
+    <title>Admin Management | DALLOS Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Admin Management</h1>
 
-<div id="messageBox"></div>
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2>🛍️ <span>DALLOS Mall</span></h2>
+    </div>
 
-<!-- Add Admin Form -->
-<form id="adminForm">
-    <input type="text" id="username" placeholder="Username" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="text" id="fullName" placeholder="Full Name">
-    <button type="submit">Add Admin</button>
-</form>
+    <nav class="sidebar-nav">
+        <a href="../admin-dashboard/dashboard.html" class="nav-link">
+            <i class="icon">📊</i><span>Dashboard</span>
+        </a>
+        <a href="../admin-ui/index.html" class="nav-link active">
+            <i class="icon">🧑‍💼</i><span>Admins</span>
+        </a>
+        <a href="../product-ui/index.html" class="nav-link">
+            <i class="icon">🛒</i><span>Products</span>
+        </a>
+        <a href="../order-ui/index.html" class="nav-link">
+            <i class="icon">📦</i><span>Orders</span>
+        </a>
+        <a href="../staff-ui/index.html" class="nav-link">
+            <i class="icon">👥</i><span>Staff</span>
+        </a>
+        <a href="../cart-ui/index.html" class="nav-link">
+            <i class="icon">🧾</i><span>Cart</span>
+        </a>
+    </nav>
+</aside>
 
-<!-- Admin Table -->
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Full Name</th>
-        <th>Created At</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody id="adminTableBody"></tbody>
-</table>
+<!-- Main Content -->
+<main class="main">
+    <header class="topbar">
+        <h1>👨‍💼 Admin Management</h1>
+        <button id="logoutBtn" class="logout">Logout</button>
+    </header>
+
+    <section class="admin-container">
+        <div id="messageBox"></div>
+
+        <!-- Add Admin Form -->
+        <form id="adminForm" class="admin-form">
+            <input type="text" id="username" placeholder="Username *" required>
+            <input type="password" id="password" placeholder="Password *" minlength="6" required>
+            <input type="email" id="email" placeholder="Email *" required>
+            <input type="text" id="fullName" placeholder="Full Name">
+            <button type="submit" class="btn-primary">Add Admin</button>
+        </form>
+
+        <!-- Admin Table -->
+        <div class="table-card">
+            <table id="adminTable">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Full Name</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="adminTableBody"></tbody>
+            </table>
+        </div>
+    </section>
+</main>
 
 <script src="admin.js"></script>
 </body>

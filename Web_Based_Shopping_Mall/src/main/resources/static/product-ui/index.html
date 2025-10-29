@@ -1,49 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Management</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Management | DALLOS Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="container">
-    <h1>🛒 Product Management</h1>
 
-    <!-- Product Form -->
-    <form id="productForm">
-        <input type="hidden" id="productId">
-        <input type="text" id="name" placeholder="Product Name" required>
-        <textarea id="description" placeholder="Description"></textarea>
-        <input type="number" id="price" placeholder="Price" step="0.01" required>
-        <input type="text" id="size" placeholder="Size">
-        <input type="text" id="category" placeholder="Category">
-        <input type="number" id="quantity" placeholder="Quantity" required>
-        <input type="text" id="imageUrl" placeholder="Image URL">
-        <button type="submit">Save Product</button>
-    </form>
+<!-- Sidebar -->
+<aside class="sidebar">
+    <h2>🛍️ DALLOS Mall</h2>
+    <nav>
+        <a href="../admin-dashboard/dashboard.html" class="nav-link">📊 Dashboard</a>
+        <a href="../admin-ui/index.html" class="nav-link">👤 Admins</a>
+        <a href="../product-ui/index.html" class="nav-link active">🛒 Products</a>
+        <a href="../order-ui/index.html" class="nav-link">📦 Orders</a>
+        <a href="../staff-ui/index.html" class="nav-link">👥 Staff</a>
+        <a href="../cart-ui/index.html" class="nav-link">🧾 Cart</a>
+    </nav>
+</aside>
 
-    <!-- Product Table -->
-    <h2>📦 Product List</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Size</th>
-            <th>Category</th>
-            <th>Quantity</th>
-            <th>Image</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody id="productTableBody">
-        <!-- Filled dynamically by product.js -->
-        </tbody>
-    </table>
-</div>
+<!-- Main -->
+<main class="main">
+    <header class="topbar">
+        <h1>🛒 Product Management</h1>
+        <button id="logoutBtn" class="logout">Logout</button>
+    </header>
+
+    <section class="product-container">
+        <div id="messageBox"></div>
+
+        <!-- Product Form -->
+        <form id="productForm" class="product-form">
+            <input type="hidden" id="productId">
+            <input type="text" id="name" placeholder="Product Name *" required>
+            <textarea id="description" placeholder="Description"></textarea>
+            <input type="number" id="price" placeholder="Price *" step="0.01" required>
+            <input type="text" id="size" placeholder="Size">
+            <input type="text" id="category" placeholder="Category">
+            <input type="number" id="quantity" placeholder="Quantity *" required>
+            <input type="text" id="imageUrl" placeholder="Image URL">
+            <button type="submit" class="btn-primary">Save Product</button>
+        </form>
+
+        <!-- Product Table -->
+        <div class="table-card">
+            <table id="productTable">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Size</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="productTableBody"></tbody>
+            </table>
+        </div>
+    </section>
+</main>
 
 <script src="product.js"></script>
 </body>

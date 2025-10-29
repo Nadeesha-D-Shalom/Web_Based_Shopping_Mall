@@ -1,51 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Management</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Management | DALLOS Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="container">
-    <h1>📦 Order Management</h1>
 
-    <!-- Order Form -->
-    <form id="orderForm">
-        <input type="hidden" id="orderId">
-        <input type="text" id="customerName" placeholder="Customer Name" required>
-        <input type="email" id="customerEmail" placeholder="Customer Email" required>
-        <input type="number" step="0.01" id="totalAmount" placeholder="Total Amount" required>
-        <select id="status">
-            <option value="Pending">Pending</option>
-            <option value="Shipped">Shipped</option>
-            <option value="Completed">Completed</option>
-            <option value="Cancelled">Cancelled</option>
-        </select>
-        <input type="number" id="staffId" placeholder="Staff ID (optional)">
-        <button type="submit">Save Order</button>
-    </form>
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2>🛍️ <span>DALLOS Mall</span></h2>
+    </div>
 
-    <!-- Orders Table -->
-    <h2>📝 Orders List</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Customer</th>
-            <th>Email</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Total</th>
-            <th>Staff</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody id="orderTableBody">
-        <!-- Filled dynamically by order.js -->
-        </tbody>
-    </table>
-</div>
+    <nav class="sidebar-nav">
+        <a href="../admin-dashboard/dashboard.html" class="nav-link">
+            <i class="icon">📊</i><span>Dashboard</span>
+        </a>
+        <a href="../admin-ui/index.html" class="nav-link">
+            <i class="icon">🧑‍💼</i><span>Admins</span>
+        </a>
+        <a href="../product-ui/index.html" class="nav-link">
+            <i class="icon">🛒</i><span>Products</span>
+        </a>
+        <a href="../order-ui/index.html" class="nav-link active">
+            <i class="icon">📦</i><span>Orders</span>
+        </a>
+        <a href="../staff-ui/index.html" class="nav-link">
+            <i class="icon">👥</i><span>Staff</span>
+        </a>
+        <a href="../cart-ui/index.html" class="nav-link">
+            <i class="icon">🧾</i><span>Cart</span>
+        </a>
+    </nav>
+</aside>
+
+<!-- Main Content -->
+<main class="main">
+    <header class="topbar">
+        <h1>📦 Order Management</h1>
+        <button id="logoutBtn" class="logout">Logout</button>
+    </header>
+
+    <section class="order-container">
+        <div id="messageBox"></div>
+
+        <!-- Order Form -->
+        <form id="orderForm" class="order-form">
+            <input type="hidden" id="orderId">
+            <input type="text" id="customerName" placeholder="Customer Name *" required>
+            <input type="email" id="customerEmail" placeholder="Customer Email *" required>
+            <input type="number" id="totalAmount" placeholder="Total Amount *" step="0.01" required>
+            <select id="status" required>
+                <option value="Pending">Pending</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+            <input type="number" id="staffId" placeholder="Staff ID (optional)">
+            <button type="submit" class="btn-primary">Save Order</button>
+        </form>
+
+        <!-- Orders Table -->
+        <div class="table-card">
+            <table id="orderTable">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Staff</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="orderTableBody"></tbody>
+            </table>
+        </div>
+    </section>
+</main>
 
 <script src="order.js"></script>
 </body>

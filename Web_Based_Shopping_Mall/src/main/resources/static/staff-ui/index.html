@@ -1,39 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Management</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff Management | DALLOS Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<h1>Staff Management</h1>
 
-<div id="messageBox"></div>
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2>🛍️ <span>DALLOS Mall</span></h2>
+    </div>
 
-<!-- Add Staff Form -->
-<form id="staffForm">
-    <input type="hidden" id="staffId">
-    <input type="text" id="fullName" placeholder="Full Name" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="text" id="position" placeholder="Position" required>
-    <button type="submit">Save Staff</button>
-</form>
+    <nav class="sidebar-nav">
+        <a href="../admin-dashboard/dashboard.html" class="nav-link">
+            <i class="icon">📊</i><span>Dashboard</span>
+        </a>
+        <a href="../admin-ui/index.html" class="nav-link">
+            <i class="icon">🧑‍💼</i><span>Admins</span>
+        </a>
+        <a href="../product-ui/index.html" class="nav-link">
+            <i class="icon">🛒</i><span>Products</span>
+        </a>
+        <a href="../order-ui/index.html" class="nav-link">
+            <i class="icon">📦</i><span>Orders</span>
+        </a>
+        <a href="../staff-ui/index.html" class="nav-link active">
+            <i class="icon">👥</i><span>Staff</span>
+        </a>
+        <a href="../cart-ui/index.html" class="nav-link">
+            <i class="icon">🧾</i><span>Cart</span>
+        </a>
+    </nav>
+</aside>
 
-<!-- Staff Table -->
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Full Name</th>
-        <th>Email</th>
-        <th>Position</th>
-        <th>Created At</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody id="staffTableBody"></tbody>
-</table>
+<!-- Main Content -->
+<main class="main">
+    <header class="topbar">
+        <h1>👥 Staff Management</h1>
+        <button id="logoutBtn" class="logout">Logout</button>
+    </header>
+
+    <section class="staff-container">
+        <div id="messageBox"></div>
+
+        <!-- Add Staff Form -->
+        <form id="staffForm" class="staff-form">
+            <input type="hidden" id="staffId" />
+            <input type="text" id="fullName" placeholder="Full Name *" required />
+            <input type="email" id="email" placeholder="Email *" required />
+            <input type="text" id="position" placeholder="Position *" required />
+            <button type="submit" class="btn-primary">Save Staff</button>
+        </form>
+
+        <!-- Staff Table -->
+        <div class="table-card">
+            <table id="staffTable">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Position</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="staffTableBody"></tbody>
+            </table>
+        </div>
+    </section>
+</main>
 
 <script src="staff.js"></script>
 </body>

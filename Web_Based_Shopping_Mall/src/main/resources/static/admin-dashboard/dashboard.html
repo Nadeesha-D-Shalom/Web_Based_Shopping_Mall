@@ -1,40 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | DALLOS Shopping Mall</title>
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-<div class="sidebar">
-    <h2>DALLOS Shopping Mall</h2>
+<div class="sidebar" id="sidebar">
+    <h2>🛍️ DALLOS Mall</h2>
     <nav>
-        <a href="http://localhost:8080/admin-ui/index.html">👤 Admins</a>
-        <a href="../product-ui/index.html">🛍️ Products</a>
+        <a href="../admin-ui/index.html">👤 Admins</a>
+        <a href="../product-ui/index.html">🛒 Products</a>
         <a href="../order-ui/index.html">📦 Orders</a>
-        <a href="../cart-ui/index.html">🛒 Cart</a>
         <a href="../staff-ui/index.html">👥 Staff</a>
+        <a href="../cart-ui/index.html">🧾 Cart</a>
     </nav>
 </div>
 
-
 <div class="main">
     <header>
+        <button id="toggleSidebar" class="menu-btn">☰</button>
         <h1>Admin Dashboard</h1>
-        <button class="logout">Logout</button>
+        <button class="logout" id="logoutBtn">Logout</button>
     </header>
 
     <section class="cards">
-        <div class="card"><h3>Total Admins</h3><p id="adminCount">0</p></div>
-        <div class="card"><h3>Total Products</h3><p id="productCount">0</p></div>
-        <div class="card"><h3>Total Orders</h3><p id="orderCount">0</p></div>
-        <div class="card"><h3>Total Staff</h3><p id="staffCount">0</p></div>
+        <div class="card admin">
+            <h3>Total Admins</h3>
+            <p id="adminCount">0</p>
+        </div>
+        <div class="card product">
+            <h3>Total Products</h3>
+            <p id="productCount">0</p>
+        </div>
+        <div class="card order">
+            <h3>Total Orders</h3>
+            <p id="orderCount">0</p>
+        </div>
+        <div class="card staff">
+            <h3>Total Staff</h3>
+            <p id="staffCount">0</p>
+        </div>
     </section>
 
     <section class="welcome">
         <h2>Welcome, Admin 👋</h2>
-        <p>Use the sidebar to manage users, products, orders, and staff.</p>
+        <p>Use the sidebar to manage users, products, orders, and staff efficiently.</p>
     </section>
+
+    <div id="toast"></div>
 </div>
 
 <script src="dashboard.js"></script>
