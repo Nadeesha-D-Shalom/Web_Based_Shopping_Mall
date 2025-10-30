@@ -1,24 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Admin</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Admin | DALLOS Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<h1>Edit Admin</h1>
 
-<div id="messageBox"></div>
+<!-- Sidebar -->
+<aside class="sidebar">
+    <h2>🛍️ DALLOS Mall</h2>
+    <nav>
+        <a href="../admin-dashboard/dashboard.html" class="nav-link">📊 Dashboard</a>
+        <a href="../admin-ui/index.html" class="nav-link active">👤 Admins</a>
+        <a href="../product-ui/index.html" class="nav-link">🛒 Products</a>
+        <a href="../order-ui/index.html" class="nav-link">📦 Orders</a>
+        <a href="../staff-ui/index.html" class="nav-link">👥 Staff</a>
+        <a href="../cart-ui/index.html" class="nav-link">🧾 Cart</a>
+    </nav>
+</aside>
 
-<form id="editForm">
-    <input type="hidden" id="adminId">
-    <input type="text" id="username" placeholder="Username" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="text" id="fullName" placeholder="Full Name">
-    <button type="submit">Update Admin</button>
-</form>
+<!-- Main Content -->
+<main class="main">
+    <header class="topbar">
+        <h1>✏️ Edit Admin</h1>
+        <button id="backBtn" class="logout">← Back</button>
+    </header>
+
+    <section class="admin-container">
+        <div id="messageBox"></div>
+
+        <form id="editForm" class="admin-form">
+            <input type="hidden" id="adminId" />
+            <input type="text" id="username" placeholder="Username *" required />
+            <input type="password" id="password" placeholder="Password *" minlength="6" required />
+            <input type="email" id="email" placeholder="Email *" required />
+            <input type="text" id="fullName" placeholder="Full Name" />
+            <button type="submit" class="btn-primary">Update Admin</button>
+        </form>
+    </section>
+</main>
 
 <script src="edit.js"></script>
 </body>
